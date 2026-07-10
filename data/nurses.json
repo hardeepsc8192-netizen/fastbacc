@@ -43,5 +43,14 @@
     "unit": "ICU Stepdown",
     "lat": 35.4812872,
     "lng": -97.5010817
+  },
+  {
+    "id": "00ee8b9a-2182-42ef-9199-ed4a96cc30ee",
+    "name": "MK Pooser",
+    "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
+    "hospital": "BUMC Dallas",
+    "unit": "Neuro ICU",
+    "lat": 32.7897864,
+    "lng": -96.7741522
   }
 ]

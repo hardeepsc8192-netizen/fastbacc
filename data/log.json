@@ -34,5 +34,11 @@
     "nurseId": "n3",
     "date": "2026-07-10",
     "change": "Hospital: Memorial Hermann-TMC → BUMC Dallas · Unit: Labor & Delivery → Medical ICU · Address: 6411 Fannin St, Houston, TX 77030 → 3500 Gaston Ave, Dallas, TX 75246"
+  },
+  {
+    "id": "eae3f1aa-c5d1-45ff-b961-a9ad972b4511",
+    "nurseId": "93574046-0e81-4175-8375-995e622d969b",
+    "date": "2026-07-10",
+    "change": "Added to the map — OU Health Medical Center, ICU Stepdown (700 NE 13th St, Oklahoma City, OK 73104)."
   }
 ]

@@ -45,13 +45,13 @@
   },
   {
     "id": "n5",
-    "name": "Sample Nurse — Denver",
-    "hospitalAddress": "1635 Aurora Ct, Aurora, CO 80045",
-    "lat": 39.7432,
-    "lng": -104.8358,
-    "city": "Aurora",
-    "state": "CO",
-    "hospital": "UCHealth University of Colorado Hospital",
-    "unit": "PICU"
+    "name": "Nicole Demos",
+    "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
+    "hospital": "BUMC Dallas",
+    "unit": "Neuro ICU",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.7888839,
+    "lng": -96.7761699
   }
 ]

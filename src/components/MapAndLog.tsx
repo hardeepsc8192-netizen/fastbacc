@@ -35,7 +35,7 @@ export default function MapAndLog({
           onSelect={setSelectedId}
         />
       </div>
-      <aside className="flex flex-col min-h-0 border-t md:border-t-0 md:border-l border-black/10 bg-white">
+      <aside className="h-[50vh] md:h-full flex flex-col min-h-0 border-t md:border-t-0 md:border-l border-black/10 bg-white">
         <NurseDetail nurse={selectedNurse} history={history} />
         <LogFeed
           entries={logEntries}

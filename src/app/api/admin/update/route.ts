@@ -22,7 +22,16 @@ type DeleteLogEntryBody = {
   id: string;
 };
 
-type Body = UpsertNurseBody | UpsertLogEntryBody | DeleteLogEntryBody;
+type DeleteNurseBody = {
+  action: "deleteNurse";
+  id: string;
+};
+
+type Body =
+  | UpsertNurseBody
+  | UpsertLogEntryBody
+  | DeleteLogEntryBody
+  | DeleteNurseBody;
 
 export async function POST(request: Request) {
   let body: Body;
@@ -40,6 +49,8 @@ export async function POST(request: Request) {
         return await handleUpsertLogEntry(body);
       case "deleteLogEntry":
         return await handleDeleteLogEntry(body);
+      case "deleteNurse":
+        return await handleDeleteNurse(body);
       default:
         return NextResponse.json({ error: "Unknown action." }, { status: 400 });
     }
@@ -53,7 +64,7 @@ export async function POST(request: Request) {
 // message if this nurse didn't exist before. Returns null if nothing changed.
 function describeChange(previous: Nurse | null, updated: Nurse): string | null {
   if (!previous) {
-    return `Added to the map — ${updated.hospital}, ${updated.unit} in ${updated.city}, ${updated.state}.`;
+    return `Added to the map — ${updated.hospital}, ${updated.unit} (${updated.hospitalAddress}).`;
   }
 
   const changes: string[] = [];
@@ -63,15 +74,7 @@ function describeChange(previous: Nurse | null, updated: Nurse): string | null {
   if (previous.unit !== updated.unit) {
     changes.push(`Unit: ${previous.unit} → ${updated.unit}`);
   }
-  if (previous.city !== updated.city || previous.state !== updated.state) {
-    changes.push(
-      `Location: ${previous.city}, ${previous.state} → ${updated.city}, ${updated.state}`
-    );
-  }
-  if (
-    changes.length === 0 &&
-    previous.hospitalAddress !== updated.hospitalAddress
-  ) {
+  if (previous.hospitalAddress !== updated.hospitalAddress) {
     changes.push(
       `Address: ${previous.hospitalAddress} → ${updated.hospitalAddress}`
     );
@@ -122,8 +125,6 @@ async function handleUpsertNurse(body: UpsertNurseBody) {
     hospitalAddress: nurse.hospitalAddress,
     hospital: nurse.hospital,
     unit: nurse.unit,
-    city: nurse.city,
-    state: nurse.state,
     lat: geo.lat,
     lng: geo.lng,
   };
@@ -200,6 +201,41 @@ async function handleDeleteLogEntry(body: DeleteLogEntryBody) {
   }
 
   await writeJsonFile(LOG_PATH, filtered, sha, `admin: delete log entry ${body.id}`);
+
+  return NextResponse.json({ ok: true });
+}
+
+async function handleDeleteNurse(body: DeleteNurseBody) {
+  if (!body.id) {
+    return NextResponse.json({ error: "id is required." }, { status: 400 });
+  }
+
+  const { data: nurses, sha } = await readJsonFile<Nurse[]>(NURSES_PATH);
+  const nurse = nurses.find((n) => n.id === body.id);
+  if (!nurse) {
+    return NextResponse.json({ error: "Nurse not found." }, { status: 404 });
+  }
+  const remainingNurses = nurses.filter((n) => n.id !== body.id);
+
+  await writeJsonFile(
+    NURSES_PATH,
+    remainingNurses,
+    sha,
+    `admin: delete nurse ${nurse.name}`
+  );
+
+  // Cascade: drop this nurse's log entries too, so the feed doesn't show
+  // history for someone no longer on the map.
+  const { data: logEntries, sha: logSha } = await readJsonFile<LogEntry[]>(LOG_PATH);
+  const remainingLog = logEntries.filter((e) => e.nurseId !== body.id);
+  if (remainingLog.length !== logEntries.length) {
+    await writeJsonFile(
+      LOG_PATH,
+      remainingLog,
+      logSha,
+      `admin: remove log entries for deleted nurse ${nurse.name}`
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }

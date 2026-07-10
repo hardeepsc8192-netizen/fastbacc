@@ -2,7 +2,9 @@
 
 import { useEffect } from "react";
 import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
+import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
+import type { MarkerCluster } from "leaflet";
 import type { Nurse } from "@/lib/types";
 
 // Continental US bounding box — the map's default scope.
@@ -62,6 +64,20 @@ function pinIcon(highlighted: boolean, count: number) {
   });
 }
 
+// Clusters different hospitals/cities that are close together on screen —
+// separate from groupByLocation, which only merges exact same-address pins.
+function clusterIcon(cluster: MarkerCluster) {
+  const count = cluster.getChildCount();
+  const size = count < 10 ? 34 : count < 25 ? 42 : 50;
+  return L.divIcon({
+    className: "",
+    html: `<div style="width:${size}px;height:${size}px;border-radius:9999px;background:#154734;border:3px solid #FFB81C;display:flex;align-items:center;justify-content:center;color:#FFB81C;font-weight:700;font-family:sans-serif;font-size:${Math.round(
+      size * 0.38
+    )}px;box-shadow:0 2px 6px rgba(0,0,0,0.4);">${count}</div>`,
+    iconSize: L.point(size, size, true),
+  });
+}
+
 function FlyToSelected({ nurse }: { nurse: Nurse | undefined }) {
   const map = useMap();
   useEffect(() => {
@@ -96,54 +112,59 @@ export default function NurseMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {groups.map((group) => {
-        const isSelected = group.nurses.some((n) => n.id === selectedId);
-        const single = group.nurses.length === 1 ? group.nurses[0] : null;
+      <MarkerClusterGroup
+        iconCreateFunction={clusterIcon}
+        showCoverageOnHover={false}
+        spiderfyOnMaxZoom
+        maxClusterRadius={50}
+      >
+        {groups.map((group) => {
+          const isSelected = group.nurses.some((n) => n.id === selectedId);
+          const single = group.nurses.length === 1 ? group.nurses[0] : null;
 
-        return (
-          <Marker
-            key={group.key}
-            position={[group.lat, group.lng]}
-            icon={pinIcon(isSelected, group.nurses.length)}
-            eventHandlers={
-              single ? { click: () => onSelect(single.id) } : undefined
-            }
-          >
-            <Popup>
-              {single ? (
-                <div className="text-sm">
-                  <p className="font-semibold">{single.name}</p>
-                  <p>{single.hospital}</p>
-                  <p className="text-white/80">{single.unit}</p>
-                  <p className="text-white/60">
-                    {single.city}, {single.state}
-                  </p>
-                </div>
-              ) : (
-                <div className="text-sm min-w-[10rem]">
-                  <p className="font-semibold mb-1">
-                    {group.nurses.length} nurses at {group.nurses[0].hospital}
-                  </p>
-                  <ul className="space-y-1.5">
-                    {group.nurses.map((nurse) => (
-                      <li key={nurse.id}>
-                        <button
-                          type="button"
-                          onClick={() => onSelect(nurse.id)}
-                          className="text-baylor-gold underline underline-offset-2 hover:text-white"
-                        >
-                          {nurse.name}
-                        </button>
-                        <span className="text-white/70"> — {nurse.unit}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </Popup>
-          </Marker>
-        );
-      })}
+          return (
+            <Marker
+              key={group.key}
+              position={[group.lat, group.lng]}
+              icon={pinIcon(isSelected, group.nurses.length)}
+              eventHandlers={
+                single ? { click: () => onSelect(single.id) } : undefined
+              }
+            >
+              <Popup>
+                {single ? (
+                  <div className="text-sm">
+                    <p className="font-semibold">{single.name}</p>
+                    <p>{single.hospital}</p>
+                    <p className="text-white/80">{single.unit}</p>
+                    <p className="text-white/60">{single.hospitalAddress}</p>
+                  </div>
+                ) : (
+                  <div className="text-sm min-w-[10rem]">
+                    <p className="font-semibold mb-1">
+                      {group.nurses.length} nurses at {group.nurses[0].hospital}
+                    </p>
+                    <ul className="space-y-1.5">
+                      {group.nurses.map((nurse) => (
+                        <li key={nurse.id}>
+                          <button
+                            type="button"
+                            onClick={() => onSelect(nurse.id)}
+                            className="text-baylor-gold underline underline-offset-2 hover:text-white"
+                          >
+                            {nurse.name}
+                          </button>
+                          <span className="text-white/70"> — {nurse.unit}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </Popup>
+            </Marker>
+          );
+        })}
+      </MarkerClusterGroup>
       <FlyToSelected nurse={selectedNurse} />
     </MapContainer>
   );

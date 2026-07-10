@@ -30,9 +30,7 @@ export default function NurseDetail({
       <p className="font-semibold text-baylor-green">{nurse.name}</p>
       <p className="text-sm text-black/70">{nurse.hospital}</p>
       <p className="text-sm text-black/70">{nurse.unit}</p>
-      <p className="text-xs text-black/50 mt-1">
-        {nurse.city}, {nurse.state}
-      </p>
+      <p className="text-xs text-black/50 mt-1">{nurse.hospitalAddress}</p>
       {history.length > 0 && (
         <div className="mt-3">
           <p className="text-xs font-semibold text-baylor-green/80 uppercase tracking-wide">

@@ -5,8 +5,6 @@
     "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
     "hospital": "BUMC Dallas",
     "unit": "Medical ICU",
-    "city": "Dallas",
-    "state": "TX",
     "lat": 32.7888839,
     "lng": -96.7761699
   },
@@ -14,66 +12,36 @@
     "id": "n2",
     "name": "Mason Heflin",
     "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
-    "hospital": "BUMC Dallas",
-    "unit": "Medical ICU",
-    "city": "Dallas",
-    "state": "TX",
-    "lat": 32.7888839,
-    "lng": -96.7761699
+    "lat": 32.7935,
+    "lng": -96.7667,
+    "hospital": "Baylor Scott & White Dallas",
+    "unit": "ICU"
   },
   {
     "id": "n3",
-    "name": "Alanis Meza",
-    "hospitalAddress": "5200 Harry Hines Blvd, Dallas, TX 75235",
-    "hospital": "Parkland Dallas",
-    "unit": "Burn ICU",
-    "city": "Dallas",
-    "state": "TX",
-    "lat": 32.8143461,
-    "lng": -96.8352697
+    "name": "Sample Nurse — Houston",
+    "hospitalAddress": "6411 Fannin St, Houston, TX 77030",
+    "lat": 29.7096,
+    "lng": -95.4014,
+    "hospital": "Memorial Hermann-TMC",
+    "unit": "Labor & Delivery"
   },
   {
     "id": "n4",
-    "name": "MK Pooser",
-    "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
-    "hospital": "BUMC Dallas",
-    "unit": "Neuro ICU",
-    "city": "Dallas",
-    "state": "TX",
-    "lat": 32.7888839,
-    "lng": -96.7761699
+    "name": "Sample Nurse — Nashville",
+    "hospitalAddress": "1211 Medical Center Dr, Nashville, TN 37232",
+    "lat": 36.1447,
+    "lng": -86.8027,
+    "hospital": "Vanderbilt University Medical Center",
+    "unit": "Emergency"
   },
   {
     "id": "n5",
-    "name": "Nicole Demos",
-    "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
-    "hospital": "BUMC Dallas",
-    "unit": "Neuro ICU",
-    "city": "Dallas",
-    "state": "TX",
-    "lat": 32.7888839,
-    "lng": -96.7761699
-  },
-  {
-    "id": "e6722f6a-412c-45fe-9b24-164702f42ac8",
-    "name": "Mark Wilburn",
-    "hospitalAddress": "9500 Euclid Avenue, Cleveland, OH 44195",
-    "hospital": "Cleveland Clinic",
-    "unit": "Cardiovascular ICU",
-    "city": "Cleveland",
-    "state": "Ohio",
-    "lat": 41.5025528,
-    "lng": -81.6209195
-  },
-  {
-    "id": "46b844d6-1397-46cf-a5af-389b40193601",
-    "name": "Puneet Pahl",
-    "hospitalAddress": "921 Gessner Rd, Houston, TX 77024",
-    "hospital": "Memorial Hermann Memorial City",
-    "unit": "Labor & Delivery",
-    "city": "Houston",
-    "state": "TX",
-    "lat": 29.7817042,
-    "lng": -95.5467102
+    "name": "Sample Nurse — Denver",
+    "hospitalAddress": "1635 Aurora Ct, Aurora, CO 80045",
+    "lat": 39.7432,
+    "lng": -104.8358,
+    "hospital": "UCHealth University of Colorado Hospital",
+    "unit": "PICU"
   }
 ]

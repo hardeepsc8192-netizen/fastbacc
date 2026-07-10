@@ -64,5 +64,11 @@
     "nurseId": "n5",
     "date": "2026-07-10",
     "change": "Hospital: UCHealth University of Colorado Hospital → Parkland Health · Unit: PICU → Burn ICU · Address: 1635 Aurora Ct, Aurora, CO 80045 → 5200 Harry Hines Blvd, Dallas, TX 75235"
+  },
+  {
+    "id": "6128d2f5-5bcf-4ee1-be44-a0cbff18510d",
+    "nurseId": "00ee8b9a-2182-42ef-9199-ed4a96cc30ee",
+    "date": "2026-07-10",
+    "change": "Added to the map — BUMC Dallas, Neuro ICU (3500 Gaston Ave, Dallas, TX 75246)."
   }
 ]

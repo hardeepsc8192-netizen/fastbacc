@@ -4,11 +4,5 @@
     "nurseId": "n2",
     "date": "2026-06-01",
     "change": "Moved from Med-Surg to ICU at Baylor Scott & White Dallas."
-  },
-  {
-    "id": "l2",
-    "nurseId": "n3",
-    "date": "2026-05-15",
-    "change": "Relocated from Austin to Houston, started on Labor & Delivery at Memorial Hermann-TMC."
   }
 ]

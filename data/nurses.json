@@ -28,12 +28,12 @@
   },
   {
     "id": "n5",
-    "name": "Sample Nurse — Denver",
-    "hospitalAddress": "1635 Aurora Ct, Aurora, CO 80045",
-    "lat": 39.7432,
-    "lng": -104.8358,
-    "hospital": "UCHealth University of Colorado Hospital",
-    "unit": "PICU"
+    "name": "Alanis Meza",
+    "hospitalAddress": "5200 Harry Hines Blvd, Dallas, TX 75235",
+    "hospital": "Parkland Health",
+    "unit": "Burn ICU",
+    "lat": 32.8143461,
+    "lng": -96.8352697
   },
   {
     "id": "93574046-0e81-4175-8375-995e622d969b",

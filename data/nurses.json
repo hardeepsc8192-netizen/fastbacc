@@ -53,5 +53,16 @@
     "state": "TX",
     "lat": 32.7888839,
     "lng": -96.7761699
+  },
+  {
+    "id": "e6722f6a-412c-45fe-9b24-164702f42ac8",
+    "name": "Mark Wilburn",
+    "hospitalAddress": "9500 Euclid Avenue, Cleveland, OH 44195",
+    "hospital": "Cleveland Clinic",
+    "unit": "Cardiovascular ICU",
+    "city": "Cleveland",
+    "state": "Ohio",
+    "lat": 41.5025528,
+    "lng": -81.6209195
   }
 ]

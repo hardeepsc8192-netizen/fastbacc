@@ -10,12 +10,12 @@
   },
   {
     "id": "n3",
-    "name": "Sample Nurse — Houston",
-    "hospitalAddress": "6411 Fannin St, Houston, TX 77030",
-    "lat": 29.7096,
-    "lng": -95.4014,
-    "hospital": "Memorial Hermann-TMC",
-    "unit": "Labor & Delivery"
+    "name": "Mason Heflin",
+    "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
+    "hospital": "BUMC Dallas",
+    "unit": "Medical ICU",
+    "lat": 32.7888839,
+    "lng": -96.7761699
   },
   {
     "id": "n4",

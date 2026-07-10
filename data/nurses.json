@@ -64,5 +64,16 @@
     "state": "Ohio",
     "lat": 41.5025528,
     "lng": -81.6209195
+  },
+  {
+    "id": "46b844d6-1397-46cf-a5af-389b40193601",
+    "name": "Puneet Pahl",
+    "hospitalAddress": "921 Gessner Rd, Houston, TX 77024",
+    "hospital": "Memorial Hermann Memorial City",
+    "unit": "Labor & Delivery",
+    "city": "Houston",
+    "state": "TX",
+    "lat": 29.7817042,
+    "lng": -95.5467102
   }
 ]

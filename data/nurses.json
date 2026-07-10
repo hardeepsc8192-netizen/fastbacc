@@ -34,14 +34,14 @@
   },
   {
     "id": "n4",
-    "name": "Sample Nurse — Nashville",
-    "hospitalAddress": "1211 Medical Center Dr, Nashville, TN 37232",
-    "lat": 36.1447,
-    "lng": -86.8027,
-    "city": "Nashville",
-    "state": "TN",
-    "hospital": "Vanderbilt University Medical Center",
-    "unit": "Emergency"
+    "name": "MK Pooser",
+    "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
+    "hospital": "BUMC Dallas",
+    "unit": "Neuro ICU",
+    "city": "Dallas",
+    "state": "TX",
+    "lat": 32.7888839,
+    "lng": -96.7761699
   },
   {
     "id": "n5",

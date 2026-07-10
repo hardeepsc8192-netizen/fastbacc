@@ -14,7 +14,6 @@
 
 ---
 
-gines3
 A small map-first site tracking where nursing-school classmates ended up — what hospital, what unit, what city — built green-and-gold, Baylor-inspired.
 
 Think *"Snapchat Map," but for tracking your cohort's careers* — pins on a US map, click one to see who's there, and a running log of moves right next to it.

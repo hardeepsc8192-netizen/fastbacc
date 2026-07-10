@@ -11,10 +11,45 @@ const US_BOUNDS: [[number, number], [number, number]] = [
   [49.5, -66.9],
 ];
 
-function pinIcon(highlighted: boolean) {
-  const size = highlighted ? 34 : 26;
+type LocationGroup = {
+  key: string;
+  lat: number;
+  lng: number;
+  nurses: Nurse[];
+};
+
+function groupByLocation(nurses: Nurse[]): LocationGroup[] {
+  const groups = new Map<string, LocationGroup>();
+  for (const nurse of nurses) {
+    const key = `${nurse.lat.toFixed(5)},${nurse.lng.toFixed(5)}`;
+    const existing = groups.get(key);
+    if (existing) {
+      existing.nurses.push(nurse);
+    } else {
+      groups.set(key, { key, lat: nurse.lat, lng: nurse.lng, nurses: [nurse] });
+    }
+  }
+  return [...groups.values()];
+}
+
+function pinIcon(highlighted: boolean, count: number) {
   const fill = highlighted ? "#FFB81C" : "#154734";
   const accent = highlighted ? "#154734" : "#FFB81C";
+
+  if (count > 1) {
+    const size = highlighted ? 36 : 30;
+    return L.divIcon({
+      className: "",
+      html: `<div style="width:${size}px;height:${size}px;border-radius:9999px;background:${fill};border:2px solid ${accent};display:flex;align-items:center;justify-content:center;color:${accent};font-weight:700;font-size:${Math.round(
+        size * 0.42
+      )}px;font-family:sans-serif;box-shadow:0 1px 3px rgba(0,0,0,0.4);">${count}</div>`,
+      iconSize: [size, size],
+      iconAnchor: [size / 2, size / 2],
+      popupAnchor: [0, -size / 2],
+    });
+  }
+
+  const size = highlighted ? 34 : 26;
   return L.divIcon({
     className: "",
     html: `<svg width="${size}" height="${Math.round(size * 1.3)}" viewBox="0 0 26 34" xmlns="http://www.w3.org/2000/svg">
@@ -49,6 +84,7 @@ export default function NurseMap({
   onSelect: (id: string) => void;
 }) {
   const selectedNurse = nurses.find((n) => n.id === selectedId);
+  const groups = groupByLocation(nurses);
 
   return (
     <MapContainer
@@ -60,25 +96,54 @@ export default function NurseMap({
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {nurses.map((nurse) => (
-        <Marker
-          key={nurse.id}
-          position={[nurse.lat, nurse.lng]}
-          icon={pinIcon(nurse.id === selectedId)}
-          eventHandlers={{ click: () => onSelect(nurse.id) }}
-        >
-          <Popup>
-            <div className="text-sm">
-              <p className="font-semibold">{nurse.name}</p>
-              <p>{nurse.hospital}</p>
-              <p className="text-white/80">{nurse.unit}</p>
-              <p className="text-white/60">
-                {nurse.city}, {nurse.state}
-              </p>
-            </div>
-          </Popup>
-        </Marker>
-      ))}
+      {groups.map((group) => {
+        const isSelected = group.nurses.some((n) => n.id === selectedId);
+        const single = group.nurses.length === 1 ? group.nurses[0] : null;
+
+        return (
+          <Marker
+            key={group.key}
+            position={[group.lat, group.lng]}
+            icon={pinIcon(isSelected, group.nurses.length)}
+            eventHandlers={
+              single ? { click: () => onSelect(single.id) } : undefined
+            }
+          >
+            <Popup>
+              {single ? (
+                <div className="text-sm">
+                  <p className="font-semibold">{single.name}</p>
+                  <p>{single.hospital}</p>
+                  <p className="text-white/80">{single.unit}</p>
+                  <p className="text-white/60">
+                    {single.city}, {single.state}
+                  </p>
+                </div>
+              ) : (
+                <div className="text-sm min-w-[10rem]">
+                  <p className="font-semibold mb-1">
+                    {group.nurses.length} nurses at {group.nurses[0].hospital}
+                  </p>
+                  <ul className="space-y-1.5">
+                    {group.nurses.map((nurse) => (
+                      <li key={nurse.id}>
+                        <button
+                          type="button"
+                          onClick={() => onSelect(nurse.id)}
+                          className="text-baylor-gold underline underline-offset-2 hover:text-white"
+                        >
+                          {nurse.name}
+                        </button>
+                        <span className="text-white/70"> — {nurse.unit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </Popup>
+          </Marker>
+        );
+      })}
       <FlyToSelected nurse={selectedNurse} />
     </MapContainer>
   );

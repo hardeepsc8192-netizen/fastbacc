@@ -1,16 +1,15 @@
-import { readFile } from "fs/promises";
-import path from "path";
+import { readJsonFile } from "./github";
 import type { LogEntry, Nurse } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+const NURSES_PATH = "data/nurses.json";
+const LOG_PATH = "data/log.json";
 
 export async function getNurses(): Promise<Nurse[]> {
-  const raw = await readFile(path.join(DATA_DIR, "nurses.json"), "utf-8");
-  return JSON.parse(raw) as Nurse[];
+  const { data } = await readJsonFile<Nurse[]>(NURSES_PATH);
+  return data;
 }
 
 export async function getLogEntries(): Promise<LogEntry[]> {
-  const raw = await readFile(path.join(DATA_DIR, "log.json"), "utf-8");
-  const entries = JSON.parse(raw) as LogEntry[];
-  return entries.sort((a, b) => b.date.localeCompare(a.date));
+  const { data } = await readJsonFile<LogEntry[]>(LOG_PATH);
+  return data.sort((a, b) => b.date.localeCompare(a.date));
 }

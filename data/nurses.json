@@ -1,14 +1,14 @@
 [
   {
     "id": "n1",
-    "name": "Sample Nurse — Waco",
-    "hospitalAddress": "2201 Herring Ave, Waco, TX 76708",
-    "lat": 31.5678,
-    "lng": -97.1547,
-    "city": "Waco",
+    "name": "Nikki Nelson",
+    "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
+    "hospital": "BUMC Dallas",
+    "unit": "Medical ICU",
+    "city": "Dallas",
     "state": "TX",
-    "hospital": "Ascension Providence",
-    "unit": "Med-Surg"
+    "lat": 32.7888839,
+    "lng": -96.7761699
   },
   {
     "id": "n2",

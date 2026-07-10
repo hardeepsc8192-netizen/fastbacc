@@ -23,14 +23,14 @@
   },
   {
     "id": "n3",
-    "name": "Sample Nurse — Houston",
-    "hospitalAddress": "6411 Fannin St, Houston, TX 77030",
-    "lat": 29.7096,
-    "lng": -95.4014,
-    "city": "Houston",
+    "name": "Alanis Meza",
+    "hospitalAddress": "5200 Harry Hines Blvd, Dallas, TX 75235",
+    "hospital": "Parkland Dallas",
+    "unit": "Burn ICU",
+    "city": "Dallas",
     "state": "TX",
-    "hospital": "Memorial Hermann-TMC",
-    "unit": "Labor & Delivery"
+    "lat": 32.8143461,
+    "lng": -96.8352697
   },
   {
     "id": "n4",

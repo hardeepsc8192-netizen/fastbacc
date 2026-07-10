@@ -1,32 +1,26 @@
 [
   {
-    "id": "l1",
-    "nurseId": "n2",
-    "date": "2026-06-01",
-    "change": "Moved from Med-Surg to ICU at Baylor Scott & White Dallas."
-  },
-  {
-    "id": "l2",
+    "id": "6605b9ad-ec37-43f5-b969-928248135628",
     "nurseId": "n3",
-    "date": "2026-05-15",
-    "change": "Relocated from Austin to Houston, started on Labor & Delivery at Memorial Hermann-TMC."
+    "date": "2026-07-10",
+    "change": "Hospital: Memorial Hermann-TMC → Parkland Dallas · Unit: Labor & Delivery → Burn ICU · Location: Houston, TX → Dallas, TX"
   },
   {
-    "id": "l3",
+    "id": "d97cd6fa-c63b-4657-aa83-8544711675af",
     "nurseId": "n4",
-    "date": "2026-04-20",
-    "change": "New grad — started in the Emergency department at Vanderbilt University Medical Center."
+    "date": "2026-07-10",
+    "change": "Hospital: Vanderbilt University Medical Center → BUMC Dallas · Unit: Emergency → Neuro ICU · Location: Nashville, TN → Dallas, TX"
   },
   {
-    "id": "l4",
-    "nurseId": "n1",
-    "date": "2026-03-10",
-    "change": "Started as a Med-Surg nurse at Ascension Providence, Waco."
-  },
-  {
-    "id": "l5",
+    "id": "9bbb4113-0fec-4f90-b0b3-e96e63d929ca",
     "nurseId": "n5",
-    "date": "2026-02-01",
-    "change": "Transferred to the PICU at UCHealth University of Colorado Hospital."
+    "date": "2026-07-10",
+    "change": "Hospital: UCHealth University of Colorado Hospital → BUMC Dallas · Unit: PICU → Neuro ICU · Location: Aurora, CO → Dallas, TX"
+  },
+  {
+    "id": "e0f34a94-9298-40b1-951f-c92a956e35b7",
+    "nurseId": "e6722f6a-412c-45fe-9b24-164702f42ac8",
+    "date": "2026-07-10",
+    "change": "Added to the map — Cleveland Clinic, Cardiovascular ICU in Cleveland, Ohio."
   }
 ]

@@ -4,8 +4,6 @@ export type Nurse = {
   hospitalAddress: string;
   lat: number;
   lng: number;
-  city: string;
-  state: string;
   hospital: string;
   unit: string;
 };

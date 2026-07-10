@@ -10,8 +10,6 @@ const emptyNurseForm = {
   hospitalAddress: "",
   hospital: "",
   unit: "",
-  city: "",
-  state: "",
 };
 
 const emptyLogForm = {
@@ -57,6 +55,7 @@ function NurseForm({ nurses }: { nurses: Nurse[] }) {
   const [form, setForm] = useState(emptyNurseForm);
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
 
   function selectExisting(id: string) {
     if (!id) {
@@ -90,6 +89,33 @@ function NurseForm({ nurses }: { nurses: Nurse[] }) {
         ? `Saved, and logged: "${body.loggedChange}"`
         : "Saved — no info changed, nothing new to log."
     );
+    setForm(emptyNurseForm);
+    router.refresh();
+  }
+
+  async function handleDelete() {
+    if (!form.id) return;
+    if (
+      !confirm(
+        `Delete ${form.name || "this nurse"}? This also deletes their log history.`
+      )
+    ) {
+      return;
+    }
+    setDeleting(true);
+    setStatus(null);
+    const res = await fetch("/api/admin/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "deleteNurse", id: form.id }),
+    });
+    const body = await res.json();
+    setDeleting(false);
+    if (!res.ok) {
+      setStatus(`Error: ${body.error}`);
+      return;
+    }
+    setStatus("Deleted.");
     setForm(emptyNurseForm);
     router.refresh();
   }
@@ -146,18 +172,6 @@ function NurseForm({ nurses }: { nurses: Nurse[] }) {
         value={form.unit}
         onChange={(v) => setForm({ ...form, unit: v })}
       />
-      <div className="flex gap-3">
-        <Field
-          label="City"
-          value={form.city}
-          onChange={(v) => setForm({ ...form, city: v })}
-        />
-        <Field
-          label="State"
-          value={form.state}
-          onChange={(v) => setForm({ ...form, state: v })}
-        />
-      </div>
 
       {status && (
         <p
@@ -169,13 +183,25 @@ function NurseForm({ nurses }: { nurses: Nurse[] }) {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="mt-1 self-start rounded-md bg-baylor-green text-white text-sm font-medium px-4 py-2 hover:bg-baylor-green-dark transition-colors disabled:opacity-50"
-      >
-        {loading ? "Saving…" : "Save nurse"}
-      </button>
+      <div className="flex gap-2">
+        <button
+          type="submit"
+          disabled={loading || deleting}
+          className="mt-1 self-start rounded-md bg-baylor-green text-white text-sm font-medium px-4 py-2 hover:bg-baylor-green-dark transition-colors disabled:opacity-50"
+        >
+          {loading ? "Saving…" : "Save nurse"}
+        </button>
+        {form.id && (
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={loading || deleting}
+            className="mt-1 self-start rounded-md border border-red-300 text-red-600 text-sm font-medium px-4 py-2 hover:bg-red-50 transition-colors disabled:opacity-50"
+          >
+            {deleting ? "Deleting…" : "Delete nurse"}
+          </button>
+        )}
+      </div>
     </form>
   );
 }

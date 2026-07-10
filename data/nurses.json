@@ -5,8 +5,6 @@
     "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
     "hospital": "BUMC Dallas",
     "unit": "Medical ICU",
-    "city": "Dallas",
-    "state": "TX",
     "lat": 32.7888839,
     "lng": -96.7761699
   },
@@ -16,8 +14,6 @@
     "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
     "lat": 32.7935,
     "lng": -96.7667,
-    "city": "Dallas",
-    "state": "TX",
     "hospital": "Baylor Scott & White Dallas",
     "unit": "ICU"
   },
@@ -27,8 +23,6 @@
     "hospitalAddress": "6411 Fannin St, Houston, TX 77030",
     "lat": 29.7096,
     "lng": -95.4014,
-    "city": "Houston",
-    "state": "TX",
     "hospital": "Memorial Hermann-TMC",
     "unit": "Labor & Delivery"
   },
@@ -38,8 +32,6 @@
     "hospitalAddress": "1211 Medical Center Dr, Nashville, TN 37232",
     "lat": 36.1447,
     "lng": -86.8027,
-    "city": "Nashville",
-    "state": "TN",
     "hospital": "Vanderbilt University Medical Center",
     "unit": "Emergency"
   },
@@ -49,8 +41,6 @@
     "hospitalAddress": "1635 Aurora Ct, Aurora, CO 80045",
     "lat": 39.7432,
     "lng": -104.8358,
-    "city": "Aurora",
-    "state": "CO",
     "hospital": "UCHealth University of Colorado Hospital",
     "unit": "PICU"
   }

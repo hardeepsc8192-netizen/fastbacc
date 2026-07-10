@@ -31,11 +31,9 @@ A small Next.js site, themed in Baylor green/gold, with:
 type Nurse = {
   id: string
   name: string
-  hospitalAddress: string   // e.g. "3500 Gaston Ave, Dallas, TX"
+  hospitalAddress: string   // e.g. "3500 Gaston Ave, Dallas, TX" — the only location field
   lat: number                // geocoded from hospitalAddress, cached
   lng: number
-  city: string
-  state: string
   hospital: string
   unit: string
 }

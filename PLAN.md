@@ -22,7 +22,8 @@ A small Next.js site, themed in Baylor green/gold, with:
 | Map | react-leaflet + OpenStreetMap tiles | Free, no API key, no usage cap |
 | Geocoding | OpenStreetMap Nominatim | Free, used once per address (cached), not client-side |
 | Data store | `data/nurses.json`, `data/log.json` in this repo | Source of truth, versioned via git |
-| Admin → repo write | Octokit (GitHub API) + repo-scoped PAT | Admin form commits straight to `main`, triggering a Vercel redeploy |
+| Data read | GitHub Contents API, fetched fresh on every request (no caching) | Site always shows the latest commit — no redeploy needed to see an update |
+| Admin → repo write | Octokit (GitHub API) + repo-scoped PAT | Admin form commits straight to `main`; the *next page load* picks it up immediately, code changes still need a redeploy |
 | Admin auth | Single `ADMIN_PASSWORD` env var, httpOnly cookie, middleware on `/admin` + `/api/admin/*` | No user accounts needed — it's just you |
 
 ## Data model

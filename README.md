@@ -24,7 +24,7 @@ Think *"Snapchat Map," but for tracking your cohort's careers* — pins on a US 
 - 🗺️ **Live map** — one pin per classmate, scoped to the continental US by default, click a pin for their current hospital, unit, and city.
 - 📜 **Change log** — a running feed next to the map: new units, new hospitals, new cities, timestamped.
 - 🔐 **Admin view** — a password-gated page to update the log and everyone's info by hand.
-- 🗃️ **Git as the database** — every update commits straight to this repo's `data/` files, so the repo itself is the source of truth and full history of everyone's moves.
+- 🗃️ **Git as the database** — the site reads `data/nurses.json` and `data/log.json` live from this GitHub repo on every request, and admin edits commit straight back to it. The repo is the source of truth and full history of everyone's moves — no rebuild/redeploy needed to see an update, since nothing is baked into the build.
 
 ## 🛠️ Built with
 
@@ -52,18 +52,18 @@ npm run dev
 | Env var | What it's for |
 |---|---|
 | `ADMIN_PASSWORD` | Password for the `/admin` login form |
-| `GITHUB_TOKEN` | GitHub PAT (fine-grained, scoped to this repo, contents read/write) — lets `/admin` commit changes to `data/*.json` |
-| `GITHUB_OWNER` / `GITHUB_REPO` | This repo's owner/name, so the admin API knows where to commit |
+| `GITHUB_TOKEN` | GitHub PAT (fine-grained, scoped to this repo, contents read/write) — the site reads `data/*.json` through this on every page load, and `/admin` uses it to commit changes |
+| `GITHUB_OWNER` / `GITHUB_REPO` | This repo's owner/name, so the app knows which repo to read from and commit to |
 | `GITHUB_BRANCH` | Defaults to `main` |
 
-Without `GITHUB_TOKEN` set, the site itself still works fine (reads `data/*.json` straight off disk) — you just can't save changes from `/admin` until it's configured.
+All four are required — since the repo is private and data is fetched live from GitHub on every request, the map/log pages won't load without `GITHUB_TOKEN` configured (not just `/admin`).
 
 ## ☁️ Deploying to Vercel
 
 1. Push this repo to GitHub (already done — it's private).
 2. Import the repo in Vercel.
 3. Add the same env vars from the table above in the Vercel project settings.
-4. Deploy. Every time `/admin` commits a change to `data/nurses.json` or `data/log.json`, Vercel's GitHub integration will pick up the new commit and auto-redeploy — the live site updates a minute or so after you save.
+4. Deploy once. After that, **updates to the log or map don't need a redeploy** — editing `data/nurses.json` / `data/log.json` (via `/admin` or by hand) just changes what the live site reads on the next page load, typically within a second or two. You only need to redeploy when the *code* changes.
 
 ## ⚠️ Disclaimer
 

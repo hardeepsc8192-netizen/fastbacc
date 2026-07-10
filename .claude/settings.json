@@ -14,7 +14,9 @@
       "Bash(curl -s -o /dev/null -w \"admin/login: %{http_code}\\\\n\" http://localhost:3001/admin/login)",
       "Bash(curl -s -o /dev/null -w \"api update \\(no auth\\): %{http_code}\\\\n\" -X POST http://localhost:3001/api/admin/update)",
       "Bash(curl -s http://localhost:3001/)",
-      "Bash(curl -s -c /tmp/cookies.txt -X POST http://localhost:3001/api/admin/login -H \"Content-Type: application/json\" -d '{\"password\":\"wrong\"}')"
+      "Bash(curl -s -c /tmp/cookies.txt -X POST http://localhost:3001/api/admin/login -H \"Content-Type: application/json\" -d '{\"password\":\"wrong\"}')",
+      "Bash(git -C /Users/tejvirmann/Documents/bighardeep/fastbacc remote -v)",
+      "Bash(git fetch *)"
     ]
   }
 }

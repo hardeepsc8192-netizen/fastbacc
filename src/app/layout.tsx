@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,18 +31,18 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <header className="bg-baylor-green text-white border-b-4 border-baylor-gold">
           <div className="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
-            <a href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <span className="text-baylor-gold text-2xl leading-none">✚</span>
               <span className="font-semibold text-lg tracking-tight">
                 Baylor Nursing Grad Map
               </span>
-            </a>
-            <a
+            </Link>
+            <Link
               href="/admin"
               className="text-sm text-white/70 hover:text-baylor-gold transition-colors"
             >
               Admin
-            </a>
+            </Link>
           </div>
         </header>
         <main className="flex-1 flex flex-col">{children}</main>

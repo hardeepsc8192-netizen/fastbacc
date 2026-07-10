@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Nurse } from "@/lib/types";
+import type { LogEntry, Nurse } from "@/lib/types";
 
 const emptyNurseForm = {
   id: "",
@@ -14,7 +14,20 @@ const emptyNurseForm = {
   state: "",
 };
 
-export default function AdminDashboard({ nurses }: { nurses: Nurse[] }) {
+const emptyLogForm = {
+  id: "",
+  nurseId: "",
+  date: new Date().toISOString().slice(0, 10),
+  change: "",
+};
+
+export default function AdminDashboard({
+  nurses,
+  logEntries,
+}: {
+  nurses: Nurse[];
+  logEntries: LogEntry[];
+}) {
   const router = useRouter();
 
   return (
@@ -34,7 +47,7 @@ export default function AdminDashboard({ nurses }: { nurses: Nurse[] }) {
       </div>
 
       <NurseForm nurses={nurses} />
-      <LogEntryForm nurses={nurses} />
+      <LogEntryForm nurses={nurses} logEntries={logEntries} />
     </div>
   );
 }
@@ -72,7 +85,11 @@ function NurseForm({ nurses }: { nurses: Nurse[] }) {
       setStatus(`Error: ${body.error}`);
       return;
     }
-    setStatus("Saved — committed to GitHub. Vercel will redeploy shortly.");
+    setStatus(
+      body.loggedChange
+        ? `Saved, and logged: "${body.loggedChange}"`
+        : "Saved — no info changed, nothing new to log."
+    );
     setForm(emptyNurseForm);
     router.refresh();
   }
@@ -82,7 +99,13 @@ function NurseForm({ nurses }: { nurses: Nurse[] }) {
       onSubmit={handleSubmit}
       className="bg-white border border-black/10 rounded-lg p-5 flex flex-col gap-3"
     >
-      <h2 className="font-semibold text-baylor-green">Add / update a nurse</h2>
+      <div>
+        <h2 className="font-semibold text-baylor-green">Add / update a nurse</h2>
+        <p className="text-xs text-black/50 mt-0.5">
+          Changing hospital, unit, or city automatically adds a log entry
+          showing the old → new value.
+        </p>
+      </div>
 
       <label className="text-sm font-medium text-black/70">
         Edit existing
@@ -157,13 +180,32 @@ function NurseForm({ nurses }: { nurses: Nurse[] }) {
   );
 }
 
-function LogEntryForm({ nurses }: { nurses: Nurse[] }) {
+function LogEntryForm({
+  nurses,
+  logEntries,
+}: {
+  nurses: Nurse[];
+  logEntries: LogEntry[];
+}) {
   const router = useRouter();
-  const [nurseId, setNurseId] = useState("");
-  const [date, setDate] = useState(() => new Date().toISOString().slice(0, 10));
-  const [change, setChange] = useState("");
+  const [form, setForm] = useState(emptyLogForm);
   const [status, setStatus] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+
+  const nurseById = new Map(nurses.map((n) => [n.id, n]));
+  const sortedEntries = [...logEntries].sort((a, b) =>
+    b.date.localeCompare(a.date)
+  );
+
+  function selectExisting(id: string) {
+    if (!id) {
+      setForm(emptyLogForm);
+      return;
+    }
+    const entry = logEntries.find((e) => e.id === id);
+    if (entry) setForm({ ...entry });
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -172,7 +214,10 @@ function LogEntryForm({ nurses }: { nurses: Nurse[] }) {
     const res = await fetch("/api/admin/update", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "addLogEntry", nurseId, date, change }),
+      body: JSON.stringify({
+        action: "upsertLogEntry",
+        entry: { ...form, id: form.id || undefined },
+      }),
     });
     const body = await res.json();
     setLoading(false);
@@ -180,8 +225,29 @@ function LogEntryForm({ nurses }: { nurses: Nurse[] }) {
       setStatus(`Error: ${body.error}`);
       return;
     }
-    setStatus("Saved — committed to GitHub. Vercel will redeploy shortly.");
-    setChange("");
+    setStatus("Saved to the log.");
+    setForm(emptyLogForm);
+    router.refresh();
+  }
+
+  async function handleDelete() {
+    if (!form.id) return;
+    if (!confirm("Delete this log entry?")) return;
+    setDeleting(true);
+    setStatus(null);
+    const res = await fetch("/api/admin/update", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "deleteLogEntry", id: form.id }),
+    });
+    const body = await res.json();
+    setDeleting(false);
+    if (!res.ok) {
+      setStatus(`Error: ${body.error}`);
+      return;
+    }
+    setStatus("Deleted.");
+    setForm(emptyLogForm);
     router.refresh();
   }
 
@@ -190,15 +256,33 @@ function LogEntryForm({ nurses }: { nurses: Nurse[] }) {
       onSubmit={handleSubmit}
       className="bg-white border border-black/10 rounded-lg p-5 flex flex-col gap-3"
     >
-      <h2 className="font-semibold text-baylor-green">Add a log entry</h2>
+      <h2 className="font-semibold text-baylor-green">Log entries</h2>
+
+      <label className="text-sm font-medium text-black/70">
+        Edit existing
+        <select
+          className="mt-1 w-full rounded-md border border-black/20 px-2 py-1.5 text-sm"
+          value={form.id}
+          onChange={(e) => selectExisting(e.target.value)}
+        >
+          <option value="">— New entry —</option>
+          {sortedEntries.map((entry) => (
+            <option key={entry.id} value={entry.id}>
+              {entry.date} — {nurseById.get(entry.nurseId)?.name ?? "Unknown"}:{" "}
+              {entry.change.slice(0, 40)}
+              {entry.change.length > 40 ? "…" : ""}
+            </option>
+          ))}
+        </select>
+      </label>
 
       <label className="text-sm font-medium text-black/70">
         Nurse
         <select
           required
           className="mt-1 w-full rounded-md border border-black/20 px-2 py-1.5 text-sm"
-          value={nurseId}
-          onChange={(e) => setNurseId(e.target.value)}
+          value={form.nurseId}
+          onChange={(e) => setForm({ ...form, nurseId: e.target.value })}
         >
           <option value="">Select a nurse…</option>
           {nurses.map((n) => (
@@ -209,7 +293,13 @@ function LogEntryForm({ nurses }: { nurses: Nurse[] }) {
         </select>
       </label>
 
-      <Field label="Date" type="date" value={date} onChange={setDate} required />
+      <Field
+        label="Date"
+        type="date"
+        value={form.date}
+        onChange={(v) => setForm({ ...form, date: v })}
+        required
+      />
 
       <label className="text-sm font-medium text-black/70">
         Change
@@ -218,8 +308,8 @@ function LogEntryForm({ nurses }: { nurses: Nurse[] }) {
           rows={3}
           className="mt-1 w-full rounded-md border border-black/20 px-2 py-1.5 text-sm"
           placeholder="Moved from Med-Surg to ICU at Baylor Scott & White Dallas."
-          value={change}
-          onChange={(e) => setChange(e.target.value)}
+          value={form.change}
+          onChange={(e) => setForm({ ...form, change: e.target.value })}
         />
       </label>
 
@@ -233,13 +323,25 @@ function LogEntryForm({ nurses }: { nurses: Nurse[] }) {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="mt-1 self-start rounded-md bg-baylor-green text-white text-sm font-medium px-4 py-2 hover:bg-baylor-green-dark transition-colors disabled:opacity-50"
-      >
-        {loading ? "Saving…" : "Add entry"}
-      </button>
+      <div className="flex gap-2">
+        <button
+          type="submit"
+          disabled={loading || deleting}
+          className="mt-1 self-start rounded-md bg-baylor-green text-white text-sm font-medium px-4 py-2 hover:bg-baylor-green-dark transition-colors disabled:opacity-50"
+        >
+          {loading ? "Saving…" : form.id ? "Save changes" : "Add entry"}
+        </button>
+        {form.id && (
+          <button
+            type="button"
+            onClick={handleDelete}
+            disabled={loading || deleting}
+            className="mt-1 self-start rounded-md border border-red-300 text-red-600 text-sm font-medium px-4 py-2 hover:bg-red-50 transition-colors disabled:opacity-50"
+          >
+            {deleting ? "Deleting…" : "Delete entry"}
+          </button>
+        )}
+      </div>
     </form>
   );
 }

@@ -1,0 +1,41 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+:root {
+  --background: #f7f6f2;
+  --foreground: #1a1a1a;
+  --baylor-green: #154734;
+  --baylor-green-dark: #0d2f22;
+  --baylor-gold: #ffb81c;
+  --baylor-gold-soft: #fff3d6;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-baylor-green: var(--baylor-green);
+  --color-baylor-green-dark: var(--baylor-green-dark);
+  --color-baylor-gold: var(--baylor-gold);
+  --color-baylor-gold-soft: var(--baylor-gold-soft);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Leaflet popup restyle to match theme */
+.leaflet-popup-content-wrapper {
+  background: var(--baylor-green);
+  color: white;
+  border-radius: 0.5rem;
+}
+.leaflet-popup-tip {
+  background: var(--baylor-green);
+}
+.leaflet-popup-content a {
+  color: var(--baylor-gold);
+}

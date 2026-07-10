@@ -12,14 +12,14 @@
   },
   {
     "id": "n2",
-    "name": "Sample Nurse — Dallas",
+    "name": "Mason Heflin",
     "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
-    "lat": 32.7935,
-    "lng": -96.7667,
+    "hospital": "BUMC Dallas",
+    "unit": "Medical ICU",
     "city": "Dallas",
     "state": "TX",
-    "hospital": "Baylor Scott & White Dallas",
-    "unit": "ICU"
+    "lat": 32.7888839,
+    "lng": -96.7761699
   },
   {
     "id": "n3",

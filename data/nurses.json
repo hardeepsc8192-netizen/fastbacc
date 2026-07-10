@@ -52,5 +52,14 @@
     "unit": "Neuro ICU",
     "lat": 32.7897864,
     "lng": -96.7741522
+  },
+  {
+    "id": "78c87ac6-6bc8-4a12-9196-30fb9e5889a9",
+    "name": "Nicole Demos",
+    "hospitalAddress": "3500 Gaston Ave, Dallas, TX 75246",
+    "hospital": "BUMC Dallas",
+    "unit": "Neuro ICU",
+    "lat": 32.7897864,
+    "lng": -96.7741522
   }
 ]

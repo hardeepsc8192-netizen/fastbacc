@@ -160,5 +160,14 @@
     "unit": "Antepartum",
     "lat": 32.9131257,
     "lng": -96.775521
+  },
+  {
+    "id": "a3d8705a-6094-4673-84db-2840cb6ade24",
+    "name": "Claire Marshall",
+    "hospitalAddress": "N/A",
+    "hospital": "N/A",
+    "unit": "Undecided - hoping for ED",
+    "lat": 29.7725425,
+    "lng": -95.241258
   }
 ]

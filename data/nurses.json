@@ -169,5 +169,14 @@
     "unit": "Undecided - hoping for ED",
     "lat": 29.7725425,
     "lng": -95.241258
+  },
+  {
+    "id": "e5e838a3-f6a2-4b10-b50b-e51f9f986a00",
+    "name": "Madison McMurray",
+    "hospitalAddress": "1201 S Miller St, Wenatchee, WA 98801",
+    "hospital": "Confluence Health Hospital",
+    "unit": "Medical-Oncology / Surgical Orthopedics / Progressive Care",
+    "lat": 47.406481,
+    "lng": -120.3219137
   }
 ]

@@ -232,5 +232,14 @@
     "unit": "N/A - hoping for mom+baby or med/surg",
     "lat": 29.7725425,
     "lng": -95.241258
+  },
+  {
+    "id": "75ce0d16-ffb0-4130-a17b-65081210938a",
+    "name": "Hannah Bianez",
+    "hospitalAddress": "4708 Alliance Blvd, Plano, TX 75093",
+    "hospital": "Texas Oncology Plano",
+    "unit": "Infusion",
+    "lat": 33.0139523,
+    "lng": -96.7916688
   }
 ]

@@ -241,5 +241,14 @@
     "unit": "Infusion",
     "lat": 33.0139523,
     "lng": -96.7916688
+  },
+  {
+    "id": "783d5c3b-2c88-402c-8555-2c7cd9d457f3",
+    "name": "Kylee Gerdes",
+    "hospitalAddress": "700 NE 13th St, Oklahoma City, OK 73104",
+    "hospital": "OU Health Medical Center",
+    "unit": "Neuro Stepdown",
+    "lat": 35.4812872,
+    "lng": -97.5010817
   }
 ]

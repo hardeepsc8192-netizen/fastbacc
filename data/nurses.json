@@ -61,5 +61,14 @@
     "unit": "Neuro ICU",
     "lat": 32.7897864,
     "lng": -96.7741522
+  },
+  {
+    "id": "352bc6db-e38c-4be9-9183-b3611578631c",
+    "name": "Mark Wilburn",
+    "hospitalAddress": "9500 Euclid Ave, Cleveland, OH 44195",
+    "hospital": "Cleveland Clinic",
+    "unit": "Cardiovascular ICU",
+    "lat": 41.5025528,
+    "lng": -81.6209195
   }
 ]

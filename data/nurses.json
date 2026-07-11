@@ -205,5 +205,14 @@
     "unit": "N/A",
     "lat": 29.7725425,
     "lng": -95.241258
+  },
+  {
+    "id": "14c22fa6-512a-4619-8a91-0677810a45c1",
+    "name": "Julianne Savage",
+    "hospitalAddress": "330 Brookline Ave, Boston, MA 02215",
+    "hospital": "Beth Israel Deaconess Medical Center",
+    "unit": "Emergency Department",
+    "lat": 42.3399551,
+    "lng": -71.1042543
   }
 ]

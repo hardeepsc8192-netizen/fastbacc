@@ -115,5 +115,14 @@
     "unit": "Neuro PCU",
     "lat": 32.7372072,
     "lng": -97.3391381
+  },
+  {
+    "id": "12527108-b6ab-4199-b656-436522cf999b",
+    "name": "Ellie Bush",
+    "hospitalAddress": "5323 Harry Hines Blvd., Dallas, TX 75390",
+    "hospital": "UT Southwestern",
+    "unit": "Surgical Oncology",
+    "lat": 32.8124211,
+    "lng": -96.8403656
   }
 ]

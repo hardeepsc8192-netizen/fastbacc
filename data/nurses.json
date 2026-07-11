@@ -97,5 +97,14 @@
     "unit": "Pediatric CVICU",
     "lat": 29.7144691,
     "lng": -95.397679
+  },
+  {
+    "id": "fba01f4b-224d-4077-9f98-919c0a6e5e37",
+    "name": "Anna Schmidt",
+    "hospitalAddress": " 3500 Gaston Ave, Dallas, TX 75246",
+    "hospital": "BUMC Dallas",
+    "unit": "Operating Room",
+    "lat": 32.7897864,
+    "lng": -96.7741522
   }
 ]

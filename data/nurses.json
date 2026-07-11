@@ -250,5 +250,14 @@
     "unit": "Neuro Stepdown",
     "lat": 35.4812872,
     "lng": -97.5010817
+  },
+  {
+    "id": "5fbe2c3f-7e05-4777-9185-414be25014d3",
+    "name": "Parina Bavaria",
+    "hospitalAddress": "2200 Capers Avenue, Nashville, TN 37232",
+    "hospital": "Monroe Carell Jr. Children's at Vanderbilt",
+    "unit": "Pediatric Acute Care",
+    "lat": 36.138842,
+    "lng": -86.801968
   }
 ]

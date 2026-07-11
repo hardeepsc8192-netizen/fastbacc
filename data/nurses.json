@@ -106,5 +106,14 @@
     "unit": "Operating Room",
     "lat": 32.7897864,
     "lng": -96.7741522
+  },
+  {
+    "id": "f2eaf967-c83c-4130-aed5-69ff901e3e1d",
+    "name": "Harlie Bolz",
+    "hospitalAddress": "1301 Pennsylvania Ave. Fort Worth, TX 76104",
+    "hospital": "Texas Health Resources Harris",
+    "unit": "Neuro PCU",
+    "lat": 32.7372072,
+    "lng": -97.3391381
   }
 ]

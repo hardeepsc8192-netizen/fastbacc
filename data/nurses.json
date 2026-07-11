@@ -133,5 +133,14 @@
     "unit": "General Pediatrics / PICU / NICU",
     "lat": 32.4718469,
     "lng": -99.7330277
+  },
+  {
+    "id": "6ff744ee-2c9c-4cb8-a819-e9774d7cf8eb",
+    "name": "Nalaya Brielle",
+    "hospitalAddress": "N/A",
+    "hospital": "N/A",
+    "unit": "Hoping for women's services",
+    "lat": 29.7725425,
+    "lng": -95.241258
   }
 ]

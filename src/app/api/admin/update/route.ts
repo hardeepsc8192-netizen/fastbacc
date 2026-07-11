@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { randomUUID } from "crypto";
 import { geocodeAddress } from "@/lib/geocode";
 import { readJsonFile, writeJsonFile } from "@/lib/github";
-import type { LogEntry, Nurse } from "@/lib/types";
+import { hasRealAddress, type LogEntry, type Nurse } from "@/lib/types";
 
 const NURSES_PATH = "data/nurses.json";
 const LOG_PATH = "data/log.json";
@@ -64,6 +64,9 @@ export async function POST(request: Request) {
 // message if this nurse didn't exist before. Returns null if nothing changed.
 function describeChange(previous: Nurse | null, updated: Nurse): string | null {
   if (!previous) {
+    if (updated.lat == null) {
+      return `Added — not yet placed on the map (${updated.unit}).`;
+    }
     return `Added to the map — ${updated.hospital}, ${updated.unit} (${updated.hospitalAddress}).`;
   }
 
@@ -97,19 +100,24 @@ async function appendLogEntry(nurseId: string, change: string) {
 
 async function handleUpsertNurse(body: UpsertNurseBody) {
   const { nurse } = body;
-  if (!nurse.name || !nurse.hospitalAddress) {
-    return NextResponse.json(
-      { error: "name and hospitalAddress are required." },
-      { status: 400 }
-    );
+  if (!nurse.name) {
+    return NextResponse.json({ error: "name is required." }, { status: 400 });
   }
 
-  const geo = await geocodeAddress(nurse.hospitalAddress);
-  if (!geo) {
-    return NextResponse.json(
-      { error: `Could not geocode address: ${nurse.hospitalAddress}` },
-      { status: 400 }
-    );
+  const address = nurse.hospitalAddress?.trim() ?? "";
+  let lat: number | null = null;
+  let lng: number | null = null;
+
+  if (hasRealAddress(address)) {
+    const geo = await geocodeAddress(address);
+    if (!geo) {
+      return NextResponse.json(
+        { error: `Could not geocode address: ${address}` },
+        { status: 400 }
+      );
+    }
+    lat = geo.lat;
+    lng = geo.lng;
   }
 
   const { data: nurses, sha } = await readJsonFile<Nurse[]>(NURSES_PATH);
@@ -122,11 +130,11 @@ async function handleUpsertNurse(body: UpsertNurseBody) {
   const updated: Nurse = {
     id: nurse.id ?? randomUUID(),
     name: nurse.name,
-    hospitalAddress: nurse.hospitalAddress,
+    hospitalAddress: address,
     hospital: nurse.hospital,
     unit: nurse.unit,
-    lat: geo.lat,
-    lng: geo.lng,
+    lat,
+    lng,
   };
 
   if (existingIndex >= 0) {

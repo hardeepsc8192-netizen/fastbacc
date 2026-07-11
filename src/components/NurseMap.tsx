@@ -5,7 +5,7 @@ import { MapContainer, Marker, Popup, TileLayer, useMap } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-cluster";
 import L from "leaflet";
 import type { MarkerCluster } from "leaflet";
-import type { Nurse } from "@/lib/types";
+import type { PlacedNurse } from "@/lib/types";
 
 // Continental US bounding box — the map's default scope.
 const US_BOUNDS: [[number, number], [number, number]] = [
@@ -13,17 +13,29 @@ const US_BOUNDS: [[number, number], [number, number]] = [
   [49.5, -66.9],
 ];
 
+// Leaflet markers don't carry app data by default; we stash the nurse count
+// for this pin on the marker's own options so the cluster icon (below) can
+// sum real nurses across a cluster instead of just counting pins.
+type TaggedMarkerOptions = L.MarkerOptions & { nurseCount?: number };
+
 type LocationGroup = {
   key: string;
   lat: number;
   lng: number;
-  nurses: Nurse[];
+  nurses: PlacedNurse[];
 };
 
-function groupByLocation(nurses: Nurse[]): LocationGroup[] {
+// Same hospital can geocode to very slightly different coordinates between
+// calls, so pins are grouped by normalized address, not raw lat/lng — every
+// nurse in a group renders at the first nurse's coordinates.
+function normalizeAddress(address: string) {
+  return address.trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function groupByLocation(nurses: PlacedNurse[]): LocationGroup[] {
   const groups = new Map<string, LocationGroup>();
   for (const nurse of nurses) {
-    const key = `${nurse.lat.toFixed(5)},${nurse.lng.toFixed(5)}`;
+    const key = normalizeAddress(nurse.hospitalAddress);
     const existing = groups.get(key);
     if (existing) {
       existing.nurses.push(nurse);
@@ -66,8 +78,15 @@ function pinIcon(highlighted: boolean, count: number) {
 
 // Clusters different hospitals/cities that are close together on screen —
 // separate from groupByLocation, which only merges exact same-address pins.
+// The count sums each pin's real nurseCount (tagged on the marker below),
+// not the number of pins/markers in the cluster.
 function clusterIcon(cluster: MarkerCluster) {
-  const count = cluster.getChildCount();
+  const count = cluster
+    .getAllChildMarkers()
+    .reduce(
+      (sum, marker) => sum + ((marker.options as TaggedMarkerOptions).nurseCount ?? 1),
+      0
+    );
   const size = count < 10 ? 34 : count < 25 ? 42 : 50;
   return L.divIcon({
     className: "",
@@ -78,7 +97,7 @@ function clusterIcon(cluster: MarkerCluster) {
   });
 }
 
-function FlyToSelected({ nurse }: { nurse: Nurse | undefined }) {
+function FlyToSelected({ nurse }: { nurse: PlacedNurse | undefined }) {
   const map = useMap();
   useEffect(() => {
     if (nurse) {
@@ -95,7 +114,7 @@ export default function NurseMap({
   selectedId,
   onSelect,
 }: {
-  nurses: Nurse[];
+  nurses: PlacedNurse[];
   selectedId: string | null;
   onSelect: (id: string) => void;
 }) {
@@ -127,6 +146,12 @@ export default function NurseMap({
               key={group.key}
               position={[group.lat, group.lng]}
               icon={pinIcon(isSelected, group.nurses.length)}
+              ref={(instance) => {
+                if (instance) {
+                  (instance.options as TaggedMarkerOptions).nurseCount =
+                    group.nurses.length;
+                }
+              }}
               eventHandlers={
                 single ? { click: () => onSelect(single.id) } : undefined
               }

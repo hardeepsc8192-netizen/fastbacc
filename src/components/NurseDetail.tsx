@@ -19,14 +19,14 @@ export default function NurseDetail({
 }) {
   if (!nurse) {
     return (
-      <div className="px-4 py-4 border-b border-black/10 text-sm text-black/50">
+      <div className="shrink-0 px-4 py-4 border-b border-black/10 text-sm text-black/50">
         Click a pin on the map, or a name in the log, to see more.
       </div>
     );
   }
 
   return (
-    <div className="px-4 py-4 border-b border-black/10 bg-baylor-gold-soft/60">
+    <div className="shrink-0 max-h-[45%] overflow-y-auto px-4 py-4 border-b border-black/10 bg-baylor-gold-soft/60">
       <p className="font-semibold text-baylor-green">{nurse.name}</p>
       <p className="text-sm text-black/70">{nurse.hospital}</p>
       <p className="text-sm text-black/70">{nurse.unit}</p>

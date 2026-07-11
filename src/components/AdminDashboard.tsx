@@ -156,11 +156,10 @@ function NurseForm({ nurses }: { nurses: Nurse[] }) {
         required
       />
       <Field
-        label="Hospital address"
+        label="Hospital address (leave blank or N/A if not placed yet)"
         value={form.hospitalAddress}
         onChange={(v) => setForm({ ...form, hospitalAddress: v })}
         placeholder="3500 Gaston Ave, Dallas, TX 75246"
-        required
       />
       <Field
         label="Hospital name"

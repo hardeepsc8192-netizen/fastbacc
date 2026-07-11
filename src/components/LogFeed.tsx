@@ -59,7 +59,7 @@ export default function LogFeed({
   const hasMore = visibleCount < entries.length;
 
   return (
-    <div className="flex flex-col h-full min-h-0">
+    <div className="flex flex-col flex-1 min-h-0">
       <h2 className="px-4 py-3 text-sm font-semibold text-baylor-green border-b border-black/10 shrink-0">
         Recent changes
       </h2>

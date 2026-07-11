@@ -79,5 +79,14 @@
     "unit": "Neuro/Spine Surgical",
     "lat": 32.8136487,
     "lng": -96.8407655
+  },
+  {
+    "id": "c061684c-661e-47f3-a3ed-9e67f68fea20",
+    "name": "Ashlea Sarepta",
+    "hospitalAddress": "1650 W College St, Grapevine, TX 76051",
+    "hospital": "BUMC Grapevine",
+    "unit": "Emergency Department",
+    "lat": 32.9338752,
+    "lng": -97.0940581
   }
 ]

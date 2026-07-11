@@ -76,5 +76,11 @@
     "nurseId": "78c87ac6-6bc8-4a12-9196-30fb9e5889a9",
     "date": "2026-07-10",
     "change": "Added to the map — BUMC Dallas, Neuro ICU (3500 Gaston Ave, Dallas, TX 75246)."
+  },
+  {
+    "id": "44a745eb-a3c4-4727-942d-9822b43c330b",
+    "nurseId": "352bc6db-e38c-4be9-9183-b3611578631c",
+    "date": "2026-07-11",
+    "change": "Added to the map — Cleveland Clinic, Cardiovascular ICU (9500 Euclid Ave, Cleveland, OH 44195)."
   }
 ]

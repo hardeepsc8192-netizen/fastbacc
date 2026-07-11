@@ -187,5 +187,14 @@
     "unit": "Labor & Delivery",
     "lat": 38.8584151,
     "lng": -77.2307533
+  },
+  {
+    "id": "490da255-e1a8-4a5a-bc48-9bd56fdc53d2",
+    "name": "Dorothy LaMorgese",
+    "hospitalAddress": "N/A",
+    "hospital": "N/A",
+    "unit": "N/A - hoping for NICU",
+    "lat": 29.7725425,
+    "lng": -95.241258
   }
 ]

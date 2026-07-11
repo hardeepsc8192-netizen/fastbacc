@@ -124,5 +124,14 @@
     "unit": "Surgical Oncology",
     "lat": 32.8124211,
     "lng": -96.8403656
+  },
+  {
+    "id": "e5f77cfb-e66b-4654-b824-7e058f9441d9",
+    "name": "Kaitlyn Biles",
+    "hospitalAddress": "1900 Pine St, Abilene, TX 79601",
+    "hospital": "Hendricks Medical Center",
+    "unit": "General Pediatrics / PICU / NICU",
+    "lat": 32.4718469,
+    "lng": -99.7330277
   }
 ]

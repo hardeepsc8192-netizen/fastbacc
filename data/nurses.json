@@ -277,5 +277,14 @@
     "unit": "",
     "lat": null,
     "lng": null
+  },
+  {
+    "id": "a02f7740-a404-40e9-9089-c8cb2fe81b68",
+    "name": "Nalaya Brielle",
+    "hospitalAddress": "5200 Harry Hines Blvd, Dallas, TX 75235",
+    "hospital": "Parkland",
+    "unit": "Labor & Delivery",
+    "lat": 32.8143461,
+    "lng": -96.8352697
   }
 ]

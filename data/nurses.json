@@ -268,5 +268,14 @@
     "unit": "Bone Marrow Transplant",
     "lat": 32.9131257,
     "lng": -96.775521
+  },
+  {
+    "id": "634519e7-67e4-424e-b354-37a820fa7515",
+    "name": "Winslow Rock",
+    "hospitalAddress": "N/A",
+    "hospital": "",
+    "unit": "",
+    "lat": null,
+    "lng": null
   }
 ]

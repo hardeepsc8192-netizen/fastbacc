@@ -295,5 +295,14 @@
     "unit": "Hoping for antepartum in Austin",
     "lat": null,
     "lng": null
+  },
+  {
+    "id": "c1b583ef-e2e8-4c2a-852b-cff834a4a002",
+    "name": "Hanlin Smith",
+    "hospitalAddress": "1935 Medical District Dr, Dallas, TX 75235",
+    "hospital": "Children’s Medical Center",
+    "unit": "Pediatric ICU",
+    "lat": 32.8094783,
+    "lng": -96.8375466
   }
 ]
